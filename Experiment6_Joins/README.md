@@ -1,177 +1,210 @@
-# Experiment 6: Joins
+ # Experiment 7: PL/SQL – Variables, Control Structures and Loops
 
 ## AIM
-To study and implement different types of joins.
+To write and execute simple PL/SQL programs using variables, loops, and conditional statements.
+
 
 ## THEORY
 
-SQL Joins are used to combine records from two or more tables based on a related column.
-
-### 1. INNER JOIN
-Returns records with matching values in both tables.
+PL/SQL, which stands for Procedural Language extensions to the Structured Query Language (SQL). It is a combination of SQL along with the procedural features of programming languages.
 
 **Syntax:**
 ```sql
-SELECT columns
-FROM table1
-INNER JOIN table2
-ON table1.column = table2.column;
+DECLARE 
+   <declarations section> 
+BEGIN 
+   <executable command(s)>
+EXCEPTION 
+   <exception handling> 
+END;
 ```
 
-### 2. LEFT JOIN
-Returns all records from the left table, and matched records from the right.
+### Basic Components of PL/SQL Block:
+- DECLARE: Section to declare variables and constants.
+- BEGIN: The execution section that contains PL/SQL statements.
+- EXCEPTION: Handles errors or exceptions that occur in the program.
+- END: Marks the end of the PL/SQL block.
 
-**Syntax:**
+# PL/SQL Programs – Steps and Expected Output
 
-```sql
-SELECT columns
-FROM table1
-LEFT JOIN table2
-ON table1.column = table2.column;
+## 1. Write a PL/SQL program to find the Greatest of Two Numbers
+
+### Steps:
+- Declare two numeric variables and initialize them.
+- Use an `IF` statement to compare the values.
+- Display the greater number using `DBMS_OUTPUT.PUT_LINE`.
+
+**Expected Output:**  
+Greater number is: 80
+
+# PROGRAM 
 ```
-### 3. RIGHT JOIN
-Returns all records from the right table, and matched records from the left.
+DECLARE
+    num1 NUMBER := 50;
+    num2 NUMBER := 80;
+BEGIN
+    IF num1 > num2 THEN
+        DBMS_OUTPUT.PUT_LINE('Greater number is: ' || num1);
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Greater number is: ' || num2);
+    END IF;
+END;
+/
 
-**Syntax:**
-
-```sql
-SELECT columns
-FROM table1
-RIGHT JOIN table2
-ON table1.column = table2.column;
 ```
-### 4. FULL OUTER JOIN
-Returns all records when there is a match in either left or right table.
+# OUTPUT
 
-**Syntax:**
+<img width="448" height="271" alt="image" src="https://github.com/user-attachments/assets/238a8974-4180-43ba-ac4f-b0b5e9047d71" />
 
-```sql
-SELECT columns
-FROM table1
-FULL OUTER JOIN table2
-ON table1.column = table2.column;
-```
-
-**Question 1**
---
--- Paste Question 1 here
-
-```sql
--- Paste your SQL code below for Question 1
-```
-
-**Output:**
-
-![Output1](output.png)
-
-**Question 2**
 ---
--- Paste Question 2 here
 
-```sql
--- Paste your SQL code below for Question 2
+## 2. Write a PL/SQL program to Calculate Sum of First N Natural Numbers
+
+### Steps:
+- Declare a variable `n` and assign a value (e.g., 10).
+- Initialize a `sum` variable to 0.
+- Use a `WHILE` loop to iterate from 1 to `n`, adding each number to the sum.
+- Display the result using `DBMS_OUTPUT.PUT_LINE`.
+
+**Expected Output:**  
+Sum of first 10 natural numbers is: 55
+
+# PROGRAM: 
 ```
+DECLARE
+    n   NUMBER := 10;
+    i   NUMBER := 1;
+    sum NUMBER := 0;
+BEGIN
+    WHILE i <= n LOOP
+        sum := sum + i;
+        i := i + 1;
+    END LOOP;
 
-**Output:**
+    DBMS_OUTPUT.PUT_LINE('Sum of first ' || n || ' natural numbers is: ' || sum);
+END;
+/
+```
+# OUTPUT:
+<img width="440" height="268" alt="image" src="https://github.com/user-attachments/assets/3ca89df3-837a-47a1-b4cb-9aea574ac27f" />
 
-![Output2](output.png)
-
-**Question 3**
 ---
--- Paste Question 3 here
 
-```sql
--- Paste your SQL code below for Question 3
+## 3. Write a PL/SQL program to generate Fibonacci series
+
+### Steps:
+- Declare the variable `n` to indicate how many terms to generate.
+- Initialize the first two Fibonacci numbers (0 and 1).
+- Use a loop to generate the next terms using the formula `c = a + b`.
+- Print each term in the series.
+
+**Expected Output:**  
+n = 7  
+Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8
+
+# PROGRAM 
 ```
+DECLARE
+    n   NUMBER := 7;
+    a   NUMBER := 0;
+    b   NUMBER := 1;
+    c   NUMBER;
+    i   NUMBER := 3;
+BEGIN
+    DBMS_OUTPUT.PUT('Fibonacci sequence: ' || a || ', ' || b);
 
-**Output:**
+    WHILE i <= n LOOP
+        c := a + b;
+        DBMS_OUTPUT.PUT(', ' || c);
+        a := b;
+        b := c;
+        i := i + 1;
+    END LOOP;
 
-![Output3](output.png)
+    DBMS_OUTPUT.NEW_LINE;
+END;
+/
 
-**Question 4**
+```
+# OUTPUT
+
+<img width="424" height="250" alt="image" src="https://github.com/user-attachments/assets/0214730f-7b3c-4ab6-b292-2f2b4a6191e4" />
+
 ---
--- Paste Question 4 here
 
-```sql
--- Paste your SQL code below for Question 4
+## 4. Write a PL/SQL Program to display the number in Reverse Order
+
+### Steps:
+- Declare a variable `n` and assign a value (e.g., 1535).
+- Use a loop to extract each digit using modulo and reverse the number.
+- Display the reversed number.
+
+**Expected Output:**  
+n = 1535  
+Reversed number is 5351
+# PROGRAM
 ```
+DECLARE
+    n       NUMBER := 1535;
+    rem     NUMBER;
+    rev     NUMBER := 0;
+    temp    NUMBER;
+BEGIN
+    temp := n;
 
-**Output:**
+    WHILE temp > 0 LOOP
+        rem := MOD(temp, 10);         
+        rev := (rev * 10) + rem;       
+        temp := FLOOR(temp / 10);      
+    END LOOP;
 
-![Output4](output.png)
+    DBMS_OUTPUT.PUT_LINE('n = ' || n);
+    DBMS_OUTPUT.PUT_LINE('Reversed number is ' || rev);
+END;
+/
 
-**Question 5**
+```
+# OUTPUT
+<img width="416" height="269" alt="image" src="https://github.com/user-attachments/assets/74ba4271-8cad-4358-8528-9a48957763bc" />
+
 ---
--- Paste Question 5 here
 
-```sql
--- Paste your SQL code below for Question 5
+## 5. Write a PL/SQL program to find the largest of three numbers
+
+### Steps:
+- Declare three numeric variables `a`, `b`, and `c`.
+- Use nested `IF-ELSIF-ELSE` conditions to find the largest among the three.
+- Display the largest number.
+
+**Expected Output:**  
+a = 10, b = 9, c = 15  
+Largest of three number is 15
+
+# PROGRAM
 ```
+DECLARE
+    a NUMBER := 10;
+    b NUMBER := 9;
+    c NUMBER := 15;
+    largest NUMBER;
+BEGIN
+    IF (a > b) AND (a > c) THEN
+        largest := a;
+    ELSIF (b > c) THEN
+        largest := b;
+    ELSE
+        largest := c;
+    END IF;
 
-**Output:**
+    DBMS_OUTPUT.PUT_LINE('a = ' || a || ', b = ' || b || ', c = ' || c);
+    DBMS_OUTPUT.PUT_LINE('Largest of three number is ' || largest);
+END;
+/
 
-![Output5](output.png)
-
-**Question 6**
----
--- Paste Question 6 here
-
-```sql
--- Paste your SQL code below for Question 6
 ```
+# OUTPUT
 
-**Output:**
-
-![Output6](output.png)
-
-**Question 7**
----
--- Paste Question 7 here
-
-```sql
--- Paste your SQL code below for Question 7
-```
-
-**Output:**
-
-![Output7](output.png)
-
-**Question 8**
----
--- Paste Question 8 here
-
-```sql
--- Paste your SQL code below for Question 8
-```
-
-**Output:**
-
-![Output8](output.png)
-
-**Question 9**
----
--- Paste Question 9 here
-
-```sql
--- Paste your SQL code below for Question 9
-```
-
-**Output:**
-
-![Output9](output.png)
-
-**Question 10**
----
--- Paste Question 10 here
-
-```sql
--- Paste your SQL code below for Question 10
-```
-
-**Output:**
-
-![Output10](output.png)
-
+<img width="520" height="276" alt="image" src="https://github.com/user-attachments/assets/c1d8c30e-f5e2-439f-9cd6-b02c69fa1ad1" />
 
 ## RESULT
-Thus, the SQL queries to implement different types of joins have been executed successfully.
+Thus, the PL/SQL programs using variables, conditionals, and loops were executed successfully.
